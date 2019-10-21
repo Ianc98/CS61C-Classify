@@ -47,11 +47,17 @@ read_matrix:
     call fread                  # fread(fp, row, 4)
     bne a0, a3, eof_or_error    # if a0 is NOT equal to a3: exit with exit code 1
 
+    lw t0, 0(s1)
+    blt t0, x0, eof_or_error
+
     add a1, s3, x0
     add a2, s2, x0
     addi a3, x0, 4
     call fread                  # fread(fp, column, 4)
     bne a0, a3, eof_or_error    # if a0 is NOT equal to a3: exit with exit code 1
+
+    lw t0, 0(s2)
+    blt t0, x0, eof_or_error
 
     lw t0, 0(s1)                # t0 <- row
     lw t1, 0(s2)                # t1 <- column
