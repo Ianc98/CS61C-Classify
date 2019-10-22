@@ -19,15 +19,14 @@
 read_matrix:
 
     # Prologue
-    addi sp, sp, -32
+    addi sp, sp, -28
     sw s0, 0(sp)                # the pointer to string representing the filename
     sw s1, 4(sp)                # a pointer to the number of rows
     sw s2, 8(sp)                # a pointer to the number of columns
     sw s3, 12(sp)               # the file descriptor
     sw s4, 16(sp)               # the pointer to the matrix in memory
     sw s5, 20(sp)               # save the # of entries
-    sw s6, 24(sp)               # counter for entries
-    sw ra, 28(sp)
+    sw ra, 24(sp)
 
     add s0, a0, x0
     add s1, a1, x0
@@ -70,21 +69,16 @@ read_matrix:
 
     add s4, a0, x0              # save the returned pointer
 
-    add s6, x0, x0              # counter for entries
-read_entry:
-    bgeu s6, s5, finish
     add a1, s3, x0
+    add a2, s4, x0
+    lw t0, 0(s1)
+    lw t1, 0(s2)
+    mul a3, t0, t1
     addi t0, x0, 4
-    mul t0, t0, s6
-    add a2, t0, x0
-    add a2, a2, s4
-    addi a3, x0, 4
+    mul a3, a3, t0
     call fread
     bne a0, a3, eof_or_error
-    addi s6, s6, 1
-    j read_entry
 
-finish:
     add a1, s3, x0              # fclose(fp)
     call fclose
     bne a0, x0, eof_or_error
@@ -98,9 +92,8 @@ finish:
     lw s3, 12(sp)
     lw s4, 16(sp)
     lw s5, 20(sp)
-    lw s6, 24(sp)
-    lw ra, 28(sp)
-    addi sp, sp, 32
+    lw ra, 24(sp)
+    addi sp, sp, 28
 
     ret
 
