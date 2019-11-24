@@ -5,4 +5,4 @@ The purpose of this project is to have you implement a simple, yet extremely use
 
 Our final goal is constructing a simple Artificial Neural Net (ANN), which will be able to classify handwritten digits to their actual number!
 
-Check out [proj2.mht](...) for more details. You will get a better visual effect using Internet Explorer to open it.
+Check out [proj2.mht](https://github.com/Ianc98/CS61C-Classify/blob/master/proj2.mht) for more details. You will get a better visual effect using Internet Explorer to open it.
